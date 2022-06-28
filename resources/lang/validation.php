@@ -134,6 +134,9 @@ return [
         ],
     ],
     'attributes' => [
+        'user_name' => 'アカウントID',
+        'last_name' => '氏名（姓）',
+        'first_name' => '氏名（名）',
         'email' => 'メールアドレス',
         'password' => 'パスワード',
     ],
