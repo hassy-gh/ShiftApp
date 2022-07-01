@@ -8,6 +8,8 @@ use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use App\Rules\Hankaku;
+use App\Rules\HankakuDash;
 
 class RegisterController extends Controller
 {
@@ -50,11 +52,12 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'user_name' => ['required', 'string', 'max:255', 'unique:users'],
-            'last_name' => ['required', 'string', 'max:255'],
-            'first_name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'user_name' => ['required', 'string', new HankakuDash, 'between:3,16', 'unique:users'],
+            'last_name' => ['required', 'string', 'max:20'],
+            'first_name' => ['required', 'string', 'max:20'],
+            'email' => ['required', 'string', "regex:/^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/", 'email', 'max:200', 'unique:users'],
+            'password' => ['required', 'string', new Hankaku, 'min:8', 'confirmed'],
+            'password_confirmation' => ['required', 'string', new Hankaku, 'min:8'],
         ]);
     }
 

@@ -4,11 +4,11 @@
 <div class="container">
   <div class="row justify-content-center">
     <div class="col-md-8">
+      <h2 class="text-center mb-3">
+        <span class="text-primary">{{ config('app.name', 'Laravel') }}</span>に会員登録
+      </h2>
       <div class="card">
-
         <div class="card-body">
-          <h2 class="card-title text-center text-primary mb-3">【従業員】アカウント作成</h2>
-
           <form method="POST" action="{{ route('register') }}">
             @csrf
 
@@ -23,37 +23,31 @@
                 <span class="invalid-feedback" role="alert">
                   <strong>{{ $message }}</strong>
                 </span>
+                @else
+                <span class="form-text">3〜16文字の半角英数字（ハイフン"-"、アンダーバー"_"）</span>
                 @enderror
               </div>
             </div>
 
             <div class="row mb-3">
-              <label for="last_name" class="col-md-4 col-form-label text-md-end">{{ __('Last Name') }}</label>
-
+              <label for="last_name" class="col-md-4 col-form-label text-md-end">{{ __('Name') }}</label>
               <div class="col-md-6">
-                <input id="last_name" type="text" class="form-control @error('last_name') is-invalid @enderror"
-                  name="last_name" value="{{ old('last_name') }}" autocomplete="last_name">
-
-                @error('last_name')
-                <span class="invalid-feedback" role="alert">
-                  <strong>{{ $message }}</strong>
-                </span>
-                @enderror
-              </div>
-            </div>
-
-            <div class="row mb-3">
-              <label for="first_name" class="col-md-4 col-form-label text-md-end">{{ __('First Name') }}</label>
-
-              <div class="col-md-6">
-                <input id="first_name" type="text" class="form-control @error('first_name') is-invalid @enderror"
-                  name="first_name" value="{{ old('first_name') }}" autocomplete="first_name">
-
-                @error('first_name')
-                <span class="invalid-feedback" role="alert">
-                  <strong>{{ $message }}</strong>
-                </span>
-                @enderror
+                <div class="input-group">
+                  <input id="last_name" type="text" class="form-control @error('last_name') is-invalid @enderror"
+                    name="last_name" value="{{ old('last_name') }}" placeholder="姓" autocomplete="last_name">
+                  <input id="first_name" type="text" class="form-control @error('first_name') is-invalid @enderror"
+                    name="first_name" value="{{ old('first_name') }}" placeholder="名" autocomplete="first_name">
+                  @error('last_name')
+                  <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                  </span>
+                  @enderror
+                  @error('first_name')
+                  <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                  </span>
+                  @enderror
+                </div>
               </div>
             </div>
 
@@ -61,8 +55,8 @@
               <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Email Address') }}</label>
 
               <div class="col-md-6">
-                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email"
-                  value="{{ old('email') }}" required autocomplete="email">
+                <input id="email" type="text" class="form-control @error('email') is-invalid @enderror" name="email"
+                  value="{{ old('email') }}" placeholder="mail@example.com" autocomplete="email">
 
                 @error('email')
                 <span class="invalid-feedback" role="alert">
@@ -77,12 +71,14 @@
 
               <div class="col-md-6">
                 <input id="password" type="password" class="form-control @error('password') is-invalid @enderror"
-                  name="password" required autocomplete="new-password">
+                  name="password" autocomplete="new-password">
 
                 @error('password')
                 <span class="invalid-feedback" role="alert">
                   <strong>{{ $message }}</strong>
                 </span>
+                @else
+                <span class="form-text">8文字以上の半角英数字</span>
                 @enderror
               </div>
             </div>
@@ -92,19 +88,33 @@
                 class="col-md-4 col-form-label text-md-end">{{ __('Confirm Password') }}</label>
 
               <div class="col-md-6">
-                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required
+                <input id="password-confirm" type="password"
+                  class="form-control @error('password_confirmation') is-invalid @enderror" name="password_confirmation"
                   autocomplete="new-password">
+
+                @error('password_confirmation')
+                <span class="invalid-feedback" role="alert">
+                  <strong>{{ $message }}</strong>
+                </span>
+                @enderror
               </div>
             </div>
 
             <div class="row mb-0">
-              <div class="col-md-6 offset-md-4 text-end">
-                <button type="submit" class="btn btn-primary">
-                  アカウント作成
+              <div class="col-md-6 offset-md-4">
+                <button type="submit" class="btn btn-primary w-100">
+                  従業員として登録する
                 </button>
               </div>
             </div>
           </form>
+          <hr>
+          <div class="d-flex justify-content-center mb-3">
+            <a href="#" class="link-primary">ログインはこちら</a>
+          </div>
+          <div class="d-flex justify-content-center">
+            <a href="#" class="link-secondary">管理者として会員登録する方</a>
+          </div>
         </div>
       </div>
     </div>
