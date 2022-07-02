@@ -106,7 +106,7 @@ return [
     'prohibited_unless'    => ':attributeフィールドは、:otherが:valuesでない限り禁止されています。',
     'prohibits'            => ':attribute フィールドは、:other が存在することを禁止します。',
     'regex'                => '不正な:attributeの形式です。',
-    'required'             => ':attributeは、必ず入力してください。',
+    'required'             => ':attributeを入力してください。',
     'required_array_keys'  => ':attributeフィールドには、：valuesのエントリを含める必要があります。',
     'required_if'          => ':otherが:valueの場合、:attributeを指定してください。',
     'required_unless'      => ':otherが:values以外の場合、:attributeを指定してください。',
