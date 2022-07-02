@@ -140,5 +140,6 @@ return [
         'email' => 'メールアドレス',
         'password' => 'パスワード',
         'password_confirmation' => 'パスワード（確認用）',
+        'email_or_user_name' => 'メールアドレスまたはShiftAppID',
     ],
 ];

@@ -13,15 +13,16 @@
             @csrf
 
             <div class="row mb-3">
-              <label for="email" class="col-md-4 col-form-label text-md-end">
+              <label for="email_or_user_name" class="col-md-4 col-form-label text-md-end">
                 {{ __('Email Address') }}または{{ __('User Name') }}
               </label>
 
               <div class="col-md-6">
-                <input id="email" type="text" class="form-control @error('email') is-invalid @enderror" name="email"
-                  value="{{ old('email') }}" autocomplete="email" autofocus>
+                <input id="email_or_user_name" type="text"
+                  class="form-control @error('email_or_user_name') is-invalid @enderror" name="email_or_user_name"
+                  value="{{ old('email_or_user_name') }}" autocomplete="email_or_user_name" autofocus>
 
-                @error('email')
+                @error('email_or_user_name')
                 <span class="invalid-feedback" role="alert">
                   <strong>{{ $message }}</strong>
                 </span>
