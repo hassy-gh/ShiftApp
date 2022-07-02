@@ -110,12 +110,20 @@
           </form>
           <hr>
           <div class="d-flex justify-content-center mb-3">
-            <a href="#" class="link-primary">ログインはこちら</a>
+            <a href="{{ route('login') }}" class="link-primary">ログインはこちら</a>
           </div>
           <div class="d-flex justify-content-center">
-            <a href="#" class="link-secondary">管理者として会員登録する方</a>
+            <a href="#" class="link-secondary">管理者として登録する方</a>
           </div>
         </div>
+      </div>
+
+      <div class="mt-3 mt-md-5">
+        <h1 class="text-center text-md-start">
+          <a class="text-primary text-decoration-none" href="{{ url('/') }}">
+            {{ config('app.name', 'Laravel') }}
+          </a>
+        </h1>
       </div>
     </div>
   </div>
