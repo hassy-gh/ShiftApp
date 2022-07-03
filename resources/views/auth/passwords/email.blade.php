@@ -28,6 +28,8 @@
                 <span class="invalid-feedback" role="alert">
                   <strong>{{ $message }}</strong>
                 </span>
+                @else
+                <span class="form-text">ご登録されているメールアドレスに再設定用URLを送信します。</span>
                 @enderror
               </div>
             </div>
