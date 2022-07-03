@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace App\Http\Controllers\Admin\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
@@ -27,7 +27,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
+    protected $redirectTo = RouteServiceProvider::ADMIN_HOME;
 
     /**
      * Create a new controller instance.
@@ -41,25 +41,35 @@ class LoginController extends Controller
     }
 
     /**
-     * メールアドレスまたはShiftAppIDで認証
+     * Show the application's login form.
+     *
+     * @return \Illuminate\View\View
      */
-    protected function username()
+    public function showLoginForm()
     {
-        return 'email_or_user_name';
+        return view('admin.auth.login');
     }
 
     /**
-     * メールアドレスまたはShiftAppIDで認証
+     * メールアドレスまたはAdminIDで認証
+     */
+    protected function username()
+    {
+        return 'email_or_admin_name';
+    }
+
+    /**
+     * メールアドレスまたはAdminIDで認証
      */
     protected function attemptLogin(Request $request)
     {
-        $email_or_user_name = $request->input($this->username());
+        $email_or_admin_name = $request->input($this->username());
         $password = $request->input('password');
 
-        if (filter_var($email_or_user_name, \FILTER_VALIDATE_EMAIL)) {
-            $credentials = ['email' => $email_or_user_name, 'password' => $password];
+        if (filter_var($email_or_admin_name, \FILTER_VALIDATE_EMAIL)) {
+            $credentials = ['email' => $email_or_admin_name, 'password' => $password];
         } else {
-            $credentials = ['user_name' => $email_or_user_name, 'password' => $password];
+            $credentials = ['user_name' => $email_or_admin_name, 'password' => $password];
         }
         return $this->guard()->attempt($credentials, $request->boolean('remember'));
     }
