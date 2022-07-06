@@ -5,6 +5,7 @@
   <div class="row justify-content-center">
     <div class="col-md-8">
       <h2 class="text-center text-secondary mb-3">{{ __('Reset Password') }}</h2>
+      <p class="text-center">※こちらはグループ管理者様専用のページです。</p>
       <div class="card">
         <div class="card-body">
           @if (session('status'))
@@ -14,7 +15,7 @@
           </p>
           @else
 
-          <form method="POST" action="{{ route('password.email') }}">
+          <form method="POST" action="{{ route('admin.password.email') }}">
             @csrf
 
             <div class="row mb-3">
@@ -37,7 +38,7 @@
             <div class="row mb-0">
               <div class="col-md-6 offset-md-4">
                 <div class="d-flex justify-content-end">
-                  <a href="{{ route('login') }}" class="btn btn-light">
+                  <a href="{{ route('admin.login') }}" class="btn btn-light">
                     キャンセル
                   </a>
                   <button type="submit" class="btn btn-primary">

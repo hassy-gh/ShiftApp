@@ -69,7 +69,8 @@
 
             <div class="row mb-0">
               <div class="col-md-6 offset-md-4">
-                <p class="text-end"><a href="{{ route('password.request') }}" class="link-secondary">パスワードを忘れた方</a></p>
+                <p class="text-end"><a href="{{ route('admin.password.request') }}"
+                    class="link-secondary">パスワードを忘れた方</a></p>
               </div>
             </div>
           </form>

@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace App\Http\Controllers\Admin\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
+use Illuminate\Support\Facades\Password;
 use Illuminate\Http\Request;
 
 class ForgotPasswordController extends Controller
@@ -33,6 +34,16 @@ class ForgotPasswordController extends Controller
     }
 
     /**
+     * Display the form to request a password reset link.
+     *
+     * @return \Illuminate\View\View
+     */
+    public function showLinkRequestForm()
+    {
+        return view('admin.auth.passwords.email');
+    }
+
+    /**
      * 正規表現でメールアドレスをバリデート
      */
     protected function validateEmail(Request $request)
@@ -40,5 +51,15 @@ class ForgotPasswordController extends Controller
         $request->validate([
             'email' => ['required', "regex:/^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/", 'email'],
         ]);
+    }
+
+    /**
+     * Get the broker to be used during password reset.
+     *
+     * @return \Illuminate\Contracts\Auth\PasswordBroker
+     */
+    public function broker()
+    {
+        return Password::broker('admins');
     }
 }
