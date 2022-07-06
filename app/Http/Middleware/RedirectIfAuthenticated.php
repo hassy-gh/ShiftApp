@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 
 class RedirectIfAuthenticated
 {
+
     /**
      * Handle an incoming request.
      *
@@ -23,6 +24,11 @@ class RedirectIfAuthenticated
 
         foreach ($guards as $guard) {
             if (Auth::guard($guard)->check()) {
+                // 管理者の場合
+                if ($guard == 'admin') {
+                    return redirect(RouteServiceProvider::ADMIN_HOME);
+                }
+
                 return redirect(RouteServiceProvider::HOME);
             }
         }

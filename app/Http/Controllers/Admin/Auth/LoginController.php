@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
@@ -69,8 +70,18 @@ class LoginController extends Controller
         if (filter_var($email_or_admin_name, \FILTER_VALIDATE_EMAIL)) {
             $credentials = ['email' => $email_or_admin_name, 'password' => $password];
         } else {
-            $credentials = ['user_name' => $email_or_admin_name, 'password' => $password];
+            $credentials = ['admin_name' => $email_or_admin_name, 'password' => $password];
         }
         return $this->guard()->attempt($credentials, $request->boolean('remember'));
+    }
+
+    /**
+     * Get the guard to be used during authentication.
+     *
+     * @return \Illuminate\Contracts\Auth\StatefulGuard
+     */
+    protected function guard()
+    {
+        return Auth::guard('admin');
     }
 }

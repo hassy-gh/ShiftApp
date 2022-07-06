@@ -14,13 +14,13 @@
             @csrf
 
             <div class="row mb-3">
-              <label for="user_name" class="col-md-4 col-form-label text-md-end">{{ __('Admin Name') }}</label>
+              <label for="admin_name" class="col-md-4 col-form-label text-md-end">{{ __('Admin Name') }}</label>
 
               <div class="col-md-6">
-                <input id="user_name" type="text" class="form-control @error('user_name') is-invalid @enderror"
-                  name="user_name" value="{{ old('user_name') }}" autocomplete="user_name" autofocus>
+                <input id="admin_name" type="text" class="form-control @error('admin_name') is-invalid @enderror"
+                  name="admin_name" value="{{ old('admin_name') }}" autocomplete="admin_name" autofocus>
 
-                @error('user_name')
+                @error('admin_name')
                 <span class="invalid-feedback" role="alert">
                   <strong>{{ $message }}</strong>
                 </span>

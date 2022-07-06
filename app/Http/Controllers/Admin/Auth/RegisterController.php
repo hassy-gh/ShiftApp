@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use App\Rules\Hankaku;
 use App\Rules\HankakuDash;
+use Illuminate\Support\Facades\Auth;
 
 class RegisterController extends Controller
 {

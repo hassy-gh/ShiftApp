@@ -134,12 +134,14 @@ return [
         ],
     ],
     'attributes' => [
-        'user_name' => 'アカウントID',
+        'user_name' => 'ShiftAppID',
         'last_name' => '氏名（姓）',
         'first_name' => '氏名（名）',
         'email' => 'メールアドレス',
         'password' => 'パスワード',
         'password_confirmation' => 'パスワード（確認用）',
         'email_or_user_name' => 'メールアドレスまたはShiftAppID',
+        'admin_name' => '管理者ID',
+        'email_or_admin_name' => 'メールアドレスまたは管理者ID',
     ],
 ];
