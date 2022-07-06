@@ -4,8 +4,8 @@
 <div class="container">
   <div class="row justify-content-center">
     <div class="col-md-8">
-      <h2 class="text-center mb-3">
-        <span class="text-primary">{{ config('app.name', 'Laravel') }}</span>に会員登録
+      <h2 class="text-center text-secondary mb-3">
+        <span class="text-primary">{{ config('app.name') }}</span>に会員登録
       </h2>
       <div class="card">
         <div class="card-body">
@@ -113,7 +113,7 @@
             <a href="{{ route('login') }}" class="link-primary">ログインはこちら</a>
           </div>
           <div class="d-flex justify-content-center">
-            <a href="#" class="link-secondary">管理者として登録する方</a>
+            <a href="{{ route('admin.register') }}" class="link-secondary">管理者として登録する方</a>
           </div>
         </div>
       </div>
@@ -121,7 +121,7 @@
       <div class="mt-3 mt-md-5">
         <h1 class="text-center text-md-start">
           <a class="text-primary text-decoration-none" href="{{ url('/') }}">
-            {{ config('app.name', 'Laravel') }}
+            {{ config('app.name') }}
           </a>
         </h1>
       </div>

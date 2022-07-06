@@ -4,12 +4,13 @@
 <div class="container">
   <div class="row justify-content-center">
     <div class="col-md-8">
-      <h2 class="text-center mb-3">
-        <span class="text-primary">{{ config('app.name', 'Laravel') }}</span>に会員登録
+      <h2 class="text-center text-secondary mb-3">
+        管理者として<span class="text-primary">{{ config('app.name') }}</span>に登録
       </h2>
+      <p class="text-center">※こちらはグループ管理者様専用の登録ページです。</p>
       <div class="card">
         <div class="card-body">
-          <form method="POST" action="{{ route('register') }}">
+          <form method="POST" action="{{ route('admin.register') }}">
             @csrf
 
             <div class="row mb-3">
@@ -102,7 +103,7 @@
 
             <div class="row mb-0">
               <div class="col-md-6 offset-md-4">
-                <button type="submit" class="btn btn-dark w-100">
+                <button type="submit" class="btn btn-primary w-100">
                   管理者として登録する
                 </button>
               </div>
@@ -110,10 +111,10 @@
           </form>
           <hr>
           <div class="d-flex justify-content-center mb-3">
-            <a href="{{ route('login') }}" class="link-primary">ログインはこちら</a>
+            <a href="{{ route('admin.login') }}" class="link-primary">ログインはこちら</a>
           </div>
           <div class="d-flex justify-content-center">
-            <a href="#" class="link-secondary">管理者として登録する方</a>
+            <a href="{{ route('register') }}" class="link-secondary">従業員として登録する方</a>
           </div>
         </div>
       </div>
@@ -121,7 +122,7 @@
       <div class="mt-3 mt-md-5">
         <h1 class="text-center text-md-start">
           <a class="text-primary text-decoration-none" href="{{ url('/') }}">
-            {{ config('app.name', 'Laravel') }}
+            {{ config('app.name') }}
           </a>
         </h1>
       </div>
