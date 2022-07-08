@@ -4,7 +4,11 @@ use App\Http\Controllers\Admin\Auth\ForgotPasswordController;
 use App\Http\Controllers\Admin\Auth\LoginController;
 use App\Http\Controllers\Admin\Auth\RegisterController;
 use App\Http\Controllers\Admin\Auth\ResetPasswordController;
+use App\Http\Controllers\Admin\Group\ProfileController as GroupProfileController;
+use App\Http\Controllers\Admin\Group\RegisterController as GroupRegisterController;
 use App\Http\Controllers\Admin\HomeController;
+use App\Http\Controllers\Employee\Group\JoinController;
+use App\Http\Controllers\Employee\Group\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -27,6 +31,15 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
+Route::group(['as' => 'employee.'], function () {
+    // グループ
+    Route::group(['prefix' => 'groups', 'as' => 'group.'], function () {
+        Route::get('join', [JoinController::class, 'showJoinForm'])->name('join');
+        Route::post('join', [JoinController::class, 'join'])->name('join');
+        Route::get('{group_name}', [ProfileController::class, 'showGroupProfile'])->name('profile');
+    });
+});
+
 // 管理者
 Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
     // 新規登録
@@ -46,4 +59,11 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
 
     // トップページ
     Route::get('/home', [HomeController::class, 'index'])->name('home');
+
+    // グループ
+    Route::group(['prefix' => 'groups', 'as' => 'group.'], function () {
+        Route::get('register', [GroupRegisterController::class, 'showRegisterForm'])->name('register');
+        Route::post('register', [GroupRegisterController::class, 'register'])->name('register');
+        Route::get('{group_name}', [GroupProfileController::class, 'showGroupProfile'])->name('profile');
+    });
 });
