@@ -13,7 +13,7 @@ class JoinRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,19 @@ class JoinRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'group_name' => 'required|string',
+            'password' => 'required|string',
+        ];
+    }
+
+    /**
+     *  バリデーション項目名定義
+     * @return array
+     */
+    public function attributes()
+    {
+        return [
+            'group_name' => 'グループID',
         ];
     }
 }

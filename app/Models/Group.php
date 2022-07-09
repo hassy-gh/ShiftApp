@@ -35,7 +35,7 @@ class Group extends Model
      */
     public function users()
     {
-        return $this->belongsToMany('App\Models\User');
+        return $this->belongsToMany('App\Models\User')->withTimestamps();
     }
 
     /**
@@ -43,6 +43,6 @@ class Group extends Model
      */
     public function admins()
     {
-        return $this->belongsToMany('App\Models\Admin');
+        return $this->belongsToMany('App\Models\Admin')->withTimestamps();
     }
 }

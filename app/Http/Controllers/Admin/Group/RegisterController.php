@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin\Group;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\Admin\Group\RegisterRequest;
+use App\Models\Group;
+use Illuminate\Support\Facades\Hash;
 
 class RegisterController extends Controller
 {
@@ -31,6 +33,14 @@ class RegisterController extends Controller
      */
     public function register(RegisterRequest $request)
     {
-        # code...
+        // ------ TODO phone_numberの形式整える ------
+        $group = Group::create([
+            'group_name'   => $request->group_name,
+            'name'         => $request->name,
+            'phone_number' => $request->phone_number,
+            'password'     => Hash::make($request->password),
+        ]);
+
+        return redirect()->route('admin.group.profile', $group->id);
     }
 }
