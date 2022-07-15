@@ -25,7 +25,7 @@
                   <strong>{{ $message }}</strong>
                 </span>
                 @else
-                <span class="form-text">3〜16文字の半角英数字（ハイフン"-"、アンダーバー"_"）</span>
+                <span class="form-text">3〜16文字の半角英数記号（ハイフン"-"、アンダーバー"_"）</span>
                 @enderror
               </div>
             </div>

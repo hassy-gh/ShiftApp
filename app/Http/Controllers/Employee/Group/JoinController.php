@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\Employee\Group\JoinRequest;
 use App\Models\Group;
-use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
 
@@ -39,14 +38,14 @@ class JoinController extends Controller
         $group = Group::where('group_name', $request->group_name)->first();
 
         // グループが存在する場合かつパスワードが一致する場合
-        // ------ TODO 従業員が既に同一グループに参加している場合はエラー ------
+        // 従業員が既に同一グループに参加している場合はエラー
         if (isset($group) && password_verify($request->password, $group->password)) {
-            if ($employee->groups()->find($group->id)->get()) {
+            if ($employee->groups()->find($group->id)) {
                 return $this->sendJoinedResponse($request);
             }
             $group->users()->attach($employee->id);
 
-            return redirect()->route('home');
+            return redirect()->route('employee.group.profile', $group->id);
         }
 
         return $this->sendFailedJoinResponse($request);

@@ -4,6 +4,7 @@ namespace App\Http\Requests\Admin\Group;
 
 use App\Rules\Hankaku;
 use App\Rules\HankakuDash;
+use App\Rules\PhoneNumber;
 use Illuminate\Foundation\Http\FormRequest;
 
 class RegisterRequest extends FormRequest
@@ -25,11 +26,10 @@ class RegisterRequest extends FormRequest
      */
     public function rules()
     {
-        // ------ TODO phone_numberのバリデーション ------
         return [
             'group_name'            => ['required', 'string', new HankakuDash, 'between:3,16', 'unique:groups'],
             'name'                  => ['required', 'string', 'max:50'],
-            'phone_number'          => ['required', 'string'],
+            'phone_number'          => ['required', 'string', new PhoneNumber],
             'password'              => ['required', 'string', new Hankaku, 'min:8', 'confirmed'],
             'password_confirmation' => ['required', 'string', new Hankaku, 'min:8'],
         ];

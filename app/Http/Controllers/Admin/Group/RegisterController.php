@@ -33,11 +33,16 @@ class RegisterController extends Controller
      */
     public function register(RegisterRequest $request)
     {
-        // ------ TODO phone_numberの形式整える ------
+        // phone_numberがハイフンを含んでいる場合の取り除く
+        $phone_number = $request->phone_number;
+        if (preg_match('/-/', $phone_number)) {
+            $phone_number = str_replace('-', '', $phone_number);
+        }
+
         $group = Group::create([
             'group_name'   => $request->group_name,
             'name'         => $request->name,
-            'phone_number' => $request->phone_number,
+            'phone_number' => $phone_number,
             'password'     => Hash::make($request->password),
         ]);
 
