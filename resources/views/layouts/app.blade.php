@@ -34,7 +34,7 @@
           <ul class="navbar-nav ms-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
             @guest
             <li class="nav-item">
-              <a class="nav-link" aria-current="page" href="#">機能</a>
+              <a class="nav-link" href="#">機能</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="#">使い方</a>
@@ -46,7 +46,27 @@
               <a class="nav-link active" href="{{ route('admin.login') }}">管理者の方</a>
             </li>
             @else
-
+            @auth('admin')
+            <li class="nav-item">
+              <a href="" class="nav-link">シフト作成</a>
+            </li>
+            <li class="nav-item">
+              <a href="" class="nav-link">アカウント設定</a>
+            </li>
+            <li class="nav-item">
+              <a href="" class="nav-link">{{ Auth::user()->last_name . Auth::user()->first_name; }}</a>
+            </li>
+            @else
+            <li class="nav-item">
+              <a href="" class="nav-link">シフト提出</a>
+            </li>
+            <li class="nav-item">
+              <a href="" class="nav-link">アカウント設定</a>
+            </li>
+            <li class="nav-item">
+              <a href="" class="nav-link">{{ Auth::user()->last_name . Auth::user()->first_name; }}</a>
+            </li>
+            @endauth
             @endguest
           </ul>
           @guest
