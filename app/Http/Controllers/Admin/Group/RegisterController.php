@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\Admin\Group\RegisterRequest;
 use App\Models\Group;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 
 class RegisterController extends Controller
 {
@@ -45,6 +46,8 @@ class RegisterController extends Controller
             'phone_number' => $phone_number,
             'password'     => Hash::make($request->password),
         ]);
+
+        Auth::user()->groups()->attach($group->id);
 
         return redirect()->route('admin.group.profile', $group->id);
     }
