@@ -4,6 +4,8 @@ use App\Http\Controllers\Admin\Auth\ForgotPasswordController;
 use App\Http\Controllers\Admin\Auth\LoginController;
 use App\Http\Controllers\Admin\Auth\RegisterController;
 use App\Http\Controllers\Admin\Auth\ResetPasswordController;
+use App\Http\Controllers\Admin\Group\AddAdminController;
+use App\Http\Controllers\Admin\Group\NewAdminController;
 use App\Http\Controllers\Admin\Group\ProfileController as GroupProfileController;
 use App\Http\Controllers\Admin\Group\RegisterController as GroupRegisterController;
 use App\Http\Controllers\Admin\HomeController;
@@ -62,8 +64,15 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
 
     // グループ
     Route::group(['prefix' => 'groups', 'as' => 'group.'], function () {
+        // グループ作成
         Route::get('register', [GroupRegisterController::class, 'showRegisterForm'])->name('register');
         Route::post('register', [GroupRegisterController::class, 'register'])->name('register');
+        // プロフィール
         Route::get('{group_name}', [GroupProfileController::class, 'showGroupProfile'])->name('profile');
+        // 管理者作成・追加
+        Route::get('/new-admin', [NewAdminController::class, 'showNewAdminForm'])->name('new-admin');
+        Route::post('/new-admin', [NewAdminController::class, 'newAdmin'])->name('new-admin');
+        Route::get('/add-admin', [AddAdminController::class, 'showAddAdminForm'])->name('add-admin');
+        Route::post('/add-admin', [AddAdminController::class, 'addAdmin'])->name('add-admin');
     });
 });

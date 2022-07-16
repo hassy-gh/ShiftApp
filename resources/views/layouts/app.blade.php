@@ -51,6 +51,12 @@
               <a href="" class="nav-link">シフト作成</a>
             </li>
             <li class="nav-item">
+              <a href="{{ route('admin.group.register') }}" class="nav-link">グループ作成</a>
+            </li>
+            <li class="nav-item">
+              <a href="" class="nav-link">管理者追加</a>
+            </li>
+            <li class="nav-item">
               <a href="" class="nav-link">アカウント設定</a>
             </li>
             <li class="nav-item">
@@ -59,6 +65,9 @@
             @else
             <li class="nav-item">
               <a href="" class="nav-link">シフト提出</a>
+            </li>
+            <li class="nav-item">
+              <a href="{{ route('employee.group.join') }}" class="nav-link"></a>
             </li>
             <li class="nav-item">
               <a href="" class="nav-link">アカウント設定</a>
