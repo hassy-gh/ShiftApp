@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Admin\Group;
 
+use App\Rules\Email;
 use Illuminate\Foundation\Http\FormRequest;
 
 class AddAdminRequest extends FormRequest
@@ -13,7 +14,7 @@ class AddAdminRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +25,7 @@ class AddAdminRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'email' => ['string', 'required', new Email, 'email'],
         ];
     }
 }
