@@ -6,8 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Group\AddAdminRequest;
 use App\Mail\Admin\AddAdminLinkMail;
 use App\Models\Admin;
+use App\Models\Group;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\URL;
 
@@ -28,7 +30,8 @@ class AddAdminController extends Controller
      */
     public function showAddAdminForm()
     {
-        return view('admin.group.add_admin_form');
+        $groups = Admin::find(Auth::id())->groups;
+        return view('admin.groups.add_admin_form', compact('groups'));
     }
 
     /**
@@ -37,18 +40,35 @@ class AddAdminController extends Controller
     public function sendAddAdminLinkEmail(AddAdminRequest $request)
     {
         $email = $request->email;
+        $group_id = $request->group_id;
         // メールアドレスが存在しない場合
         if (!Admin::where('email', $email)->exists()) {
             return back()
-                ->withInput($email)
+                ->withInput()
                 ->withErrors(['email' => trans('passwords.user')]);
         }
 
+        // 既にグループの管理者である場合
+        $added_admin = Admin::where('email', $email)->first();
+        if (!is_null($added_admin->groups->find($group_id))) {
+            return back()
+                ->withInput()
+                ->withErrors(['email' => '入力された管理者はグループに登録されています。']);
+        }
+
+        // グループが存在しない場合
+        if (is_null(Group::find($group_id))) {
+            return back()
+                ->withInput()
+                ->withErrors(['group_id' => '入力されたグループは存在しません。']);
+        }
+
         // URLの生成
-        $temporary_signed_url = $this->generateTemporarySignedURL($email);
+        $temporary_signed_url = $this->generateTemporarySignedURL($group_id, $email);
 
         // メールを送信
-        Mail::send(new AddAdminLinkMail($email, $temporary_signed_url));
+        $group = Group::find($group_id);
+        Mail::send(new AddAdminLinkMail($group, $email, $temporary_signed_url));
 
         return back();
     }
@@ -64,22 +84,26 @@ class AddAdminController extends Controller
         }
 
         $added_admin = Admin::where('email', $request->email)->first();
+        $group = Group::find($request->group_id);
 
-        // ------ TODO Groupとの連携 ------
+        $added_admin->groups()->attach($group->id);
+
+        return redirect()->route('admin.group.profile', $group->id);
     }
 
     /**
      * 有効期限・署名付きのURL生成
      */
-    protected function generateTemporarySignedURL($email)
+    protected function generateTemporarySignedURL($group_id, $email)
     {
         // 有効期限24時間
         $expire = Carbon::now()->addHours(24);
 
         $temporary_signed_url = URL::temporarySignedRoute(
-            'admin.group.add-admin',
+            'admin.group.add-admin-accept',
             $expire,
             [
+                'group_id' => $group_id,
                 'email' => $email,
             ],
         );

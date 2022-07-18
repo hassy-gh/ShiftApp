@@ -26,6 +26,29 @@ class AddAdminRequest extends FormRequest
     {
         return [
             'email' => ['string', 'required', new Email, 'email'],
+            'group_id' => ['required'],
+        ];
+    }
+
+    /**
+     *  バリデーション項目名定義
+     * @return array
+     */
+    public function attributes()
+    {
+        return [
+            'group_id'   => 'グループ',
+        ];
+    }
+
+    /**
+     *  バリデーションメッセージ
+     * @return array
+     */
+    public function messages()
+    {
+        return [
+            'group_id.required'   => ':attributeを選択してください。',
         ];
     }
 }

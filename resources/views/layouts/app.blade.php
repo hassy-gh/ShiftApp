@@ -48,32 +48,32 @@
             @else
             @auth('admin')
             <li class="nav-item">
-              <a href="" class="nav-link">シフト作成</a>
+              <a href="#" class="nav-link">シフト作成</a>
             </li>
             <li class="nav-item">
               <a href="{{ route('admin.group.register') }}" class="nav-link">グループ作成</a>
             </li>
             <li class="nav-item">
-              <a href="" class="nav-link">管理者追加</a>
+              <a href="{{ route('admin.group.add-admin') }}" class="nav-link">管理者追加</a>
             </li>
             <li class="nav-item">
-              <a href="" class="nav-link">アカウント設定</a>
+              <a href="#" class="nav-link">アカウント設定</a>
             </li>
             <li class="nav-item">
-              <a href="" class="nav-link">{{ Auth::user()->last_name . Auth::user()->first_name; }}</a>
+              <a href="#" class="nav-link">{{ Auth::user()->last_name . Auth::user()->first_name; }}</a>
             </li>
             @else
             <li class="nav-item">
-              <a href="" class="nav-link">シフト提出</a>
+              <a href="#" class="nav-link">シフト提出</a>
             </li>
             <li class="nav-item">
-              <a href="{{ route('employee.group.join') }}" class="nav-link"></a>
+              <a href="{{ route('employee.group.join') }}" class="nav-link">グループに参加</a>
             </li>
             <li class="nav-item">
-              <a href="" class="nav-link">アカウント設定</a>
+              <a href="#" class="nav-link">アカウント設定</a>
             </li>
             <li class="nav-item">
-              <a href="" class="nav-link">{{ Auth::user()->last_name . Auth::user()->first_name; }}</a>
+              <a href="#" class="nav-link">{{ Auth::user()->last_name . Auth::user()->first_name; }}</a>
             </li>
             @endauth
             @endguest

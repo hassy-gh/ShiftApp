@@ -16,8 +16,9 @@ class AddAdminLinkMail extends Mailable
      *
      * @return void
      */
-    public function __construct($email, $temporary_signed_url)
+    public function __construct($group, $email, $temporary_signed_url)
     {
+        $this->group = $group;
         $this->email = $email;
         $this->temporary_signed_url = $temporary_signed_url;
     }
@@ -31,9 +32,10 @@ class AddAdminLinkMail extends Mailable
     {
         return $this->to($this->email)
             ->subject('新規管理者登録のお知らせ')
-            ->view('admin.group.mail.add_admin_mail')
+            ->view('admin.groups.mail.add_admin_mail')
             ->with([
-                'url' => $this->temporary_signed_url,
+                'group' => $this->group,
+                'url'   => $this->temporary_signed_url,
             ]);
     }
 }

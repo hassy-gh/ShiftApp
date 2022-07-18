@@ -22,7 +22,7 @@ class NewAdminController extends Controller
      */
     public function showNewAdminForm()
     {
-        # code...
+        return view('admin.groups.new_admin_form');
     }
 
     /**

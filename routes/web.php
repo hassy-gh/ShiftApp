@@ -36,9 +36,9 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::group(['as' => 'employee.'], function () {
     // グループ
     Route::group(['prefix' => 'groups', 'as' => 'group.'], function () {
-        Route::get('join', [JoinController::class, 'showJoinForm'])->name('join');
-        Route::post('join', [JoinController::class, 'join'])->name('join');
-        Route::get('{group_name}', [ProfileController::class, 'showGroupProfile'])->name('profile');
+        Route::get('/join', [JoinController::class, 'showJoinForm'])->name('join');
+        Route::post('/join', [JoinController::class, 'join'])->name('join');
+        Route::get('/{group_name}', [ProfileController::class, 'showGroupProfile'])->name('profile');
     });
 });
 
@@ -65,14 +65,15 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
     // グループ
     Route::group(['prefix' => 'groups', 'as' => 'group.'], function () {
         // グループ作成
-        Route::get('register', [GroupRegisterController::class, 'showRegisterForm'])->name('register');
-        Route::post('register', [GroupRegisterController::class, 'register'])->name('register');
-        // プロフィール
-        Route::get('{group_name}', [GroupProfileController::class, 'showGroupProfile'])->name('profile');
+        Route::get('/register', [GroupRegisterController::class, 'showRegisterForm'])->name('register');
+        Route::post('/register', [GroupRegisterController::class, 'register'])->name('register');
         // 管理者作成・追加
         Route::get('/new-admin', [NewAdminController::class, 'showNewAdminForm'])->name('new-admin');
         Route::post('/new-admin', [NewAdminController::class, 'newAdmin'])->name('new-admin');
         Route::get('/add-admin', [AddAdminController::class, 'showAddAdminForm'])->name('add-admin');
-        Route::post('/add-admin', [AddAdminController::class, 'addAdmin'])->name('add-admin');
+        Route::post('/add-admin-email', [AddAdminController::class, 'sendAddAdminLinkEmail'])->name('add-admin-email');
+        Route::get('/add-admin/accept', [AddAdminController::class, 'addAdmin'])->name('add-admin-accept');
+        // プロフィール
+        Route::get('/{group_name}', [GroupProfileController::class, 'showGroupProfile'])->name('profile');
     });
 });
