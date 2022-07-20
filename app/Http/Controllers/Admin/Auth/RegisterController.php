@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\Models\Admin;
+use App\Rules\Email;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -67,7 +68,7 @@ class RegisterController extends Controller
             'admin_name' => ['required', 'string', new HankakuDash, 'between:3,16', 'unique:admins'],
             'last_name' => ['required', 'string', 'max:20'],
             'first_name' => ['required', 'string', 'max:20'],
-            'email' => ['required', 'string', "regex:/^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/", 'email', 'max:200', 'unique:admins'],
+            'email' => ['required', 'string', new Email, 'email', 'max:200', 'unique:admins'],
             'password' => ['required', 'string', new Hankaku, 'min:8', 'confirmed'],
             'password_confirmation' => ['required', 'string', new Hankaku, 'min:8'],
         ]);

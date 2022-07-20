@@ -30,7 +30,7 @@ class AddAdminController extends Controller
      */
     public function showAddAdminForm()
     {
-        $groups = Admin::find(Auth::id())->groups;
+        $groups = Auth::user()->groups;
         return view('admin.groups.add_admin_form', compact('groups'));
     }
 
