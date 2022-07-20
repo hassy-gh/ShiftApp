@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\Group\RegisterController as GroupRegisterControll
 use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\Employee\Group\JoinController;
 use App\Http\Controllers\Employee\Group\ProfileController;
+use App\Http\Controllers\Employee\User\ProfileController as UserProfileController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -34,6 +35,11 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::group(['as' => 'employee.'], function () {
+    // プロフィール
+    Route::group(['as' => 'user.'], function () {
+        Route::get('/{user_name}', [UserProfileController::class, 'showProfile'])->name('profile');
+    });
+
     // グループ
     Route::group(['prefix' => 'groups', 'as' => 'group.'], function () {
         Route::get('/join', [JoinController::class, 'showJoinForm'])->name('join');

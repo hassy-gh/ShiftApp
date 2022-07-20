@@ -73,7 +73,8 @@
               <a href="#" class="nav-link">アカウント設定</a>
             </li>
             <li class="nav-item">
-              <a href="#" class="nav-link">{{ Auth::user()->last_name . Auth::user()->first_name; }}</a>
+              <a href="{{ route('employee.user.profile', Auth::user()->user_name) }}"
+                class="nav-link">{{ Auth::user()->last_name . Auth::user()->first_name; }}</a>
             </li>
             @endauth
             @endguest
