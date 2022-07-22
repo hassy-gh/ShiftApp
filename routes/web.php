@@ -38,6 +38,8 @@ Route::group(['as' => 'employee.'], function () {
     // プロフィール
     Route::group(['as' => 'user.'], function () {
         Route::get('/{user_name}', [UserProfileController::class, 'showProfile'])->name('profile');
+        Route::get('/{user_name}/edit', [UserProfileController::class, 'showProfileEditForm'])->name('edit-profile');
+        Route::post('/{user_name}/edit', [UserProfileController::class, 'editProfile'])->name('edit-profile');
     });
 
     // グループ
