@@ -84,6 +84,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
         Route::get('/add-admin/accept', [AddAdminController::class, 'addAdmin'])->name('add-admin-accept');
         // プロフィール
         Route::get('/{group_name}', [GroupProfileController::class, 'showGroupProfile'])->name('profile');
+        Route::get('/{group_name}/edit', [GroupProfileController::class, 'showProfileEditForm'])->name('edit-profile');
+        Route::post('/{group_name}/edit', [GroupProfileController::class, 'editProfile'])->name('edit-profile');
     });
 
     // プロフィール

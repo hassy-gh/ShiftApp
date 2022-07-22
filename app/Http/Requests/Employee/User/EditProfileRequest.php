@@ -29,7 +29,7 @@ class EditProfileRequest extends FormRequest
     public function rules()
     {
         return [
-            'user_name' => ['required', 'string', new HankakuDash, 'between:3,16'],
+            'user_name' => ['required', 'string', new HankakuDash, 'between:3,16', Rule::unique('users')->ignore(Auth::id())],
             'last_name' => ['required', 'string', 'max:20'],
             'first_name' => ['required', 'string', 'max:20'],
             'email' => ['required', 'string', new Email, 'email', 'max:200', Rule::unique('users')->ignore(Auth::id())],
