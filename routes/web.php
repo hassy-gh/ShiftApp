@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\Group\NewAdminController;
 use App\Http\Controllers\Admin\Group\ProfileController as GroupProfileController;
 use App\Http\Controllers\Admin\Group\RegisterController as GroupRegisterController;
 use App\Http\Controllers\Admin\HomeController;
+use App\Http\Controllers\Admin\User\ProfileController as AdminUserProfileController;
 use App\Http\Controllers\Employee\Group\JoinController;
 use App\Http\Controllers\Employee\Group\ProfileController;
 use App\Http\Controllers\Employee\User\ProfileController as UserProfileController;
@@ -35,18 +36,18 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::group(['as' => 'employee.'], function () {
-    // プロフィール
-    Route::group(['as' => 'user.'], function () {
-        Route::get('/{user_name}', [UserProfileController::class, 'showProfile'])->name('profile');
-        Route::get('/{user_name}/edit', [UserProfileController::class, 'showProfileEditForm'])->name('edit-profile');
-        Route::post('/{user_name}/edit', [UserProfileController::class, 'editProfile'])->name('edit-profile');
-    });
-
     // グループ
     Route::group(['prefix' => 'groups', 'as' => 'group.'], function () {
         Route::get('/join', [JoinController::class, 'showJoinForm'])->name('join');
         Route::post('/join', [JoinController::class, 'join'])->name('join');
         Route::get('/{group_name}', [ProfileController::class, 'showGroupProfile'])->name('profile');
+    });
+
+    // プロフィール
+    Route::group(['as' => 'user.'], function () {
+        Route::get('/{user_name}', [UserProfileController::class, 'showProfile'])->name('profile');
+        Route::get('/{user_name}/edit', [UserProfileController::class, 'showProfileEditForm'])->name('edit-profile');
+        Route::post('/{user_name}/edit', [UserProfileController::class, 'editProfile'])->name('edit-profile');
     });
 });
 
@@ -83,5 +84,12 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
         Route::get('/add-admin/accept', [AddAdminController::class, 'addAdmin'])->name('add-admin-accept');
         // プロフィール
         Route::get('/{group_name}', [GroupProfileController::class, 'showGroupProfile'])->name('profile');
+    });
+
+    // プロフィール
+    Route::group(['as' => 'user.'], function () {
+        Route::get('/{admin_name}', [AdminUserProfileController::class, 'showProfile'])->name('profile');
+        Route::get('/{admin_name}/edit', [AdminUserProfileController::class, 'showProfileEditForm'])->name('edit-profile');
+        Route::post('/{admin_name}/edit', [AdminUserProfileController::class, 'editProfile'])->name('edit-profile');
     });
 });

@@ -60,7 +60,9 @@
               <a href="#" class="nav-link">アカウント設定</a>
             </li>
             <li class="nav-item">
-              <a href="#" class="nav-link">{{ Auth::user()->last_name . Auth::user()->first_name; }}</a>
+              <a href="{{ route('admin.user.profile', Auth::user()->admin_name) }}" class="nav-link">
+                {{ Auth::user()->last_name . Auth::user()->first_name; }}
+              </a>
             </li>
             @else
             <li class="nav-item">
