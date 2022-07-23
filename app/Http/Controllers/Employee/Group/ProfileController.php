@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Employee\Group;
 use App\Http\Controllers\Controller;
 use App\Models\Group;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ProfileController extends Controller
 {
@@ -23,7 +24,14 @@ class ProfileController extends Controller
      */
     public function showGroupProfile($group_name)
     {
-        $group = Group::where('group_name', $group_name);
+        // 指定したグループに所属していない場合リダイレクト
+        $groups = Auth::user()->groups;
+        if (is_null($groups->where('group_name', $group_name)->first())) {
+            return redirect()->route('home');
+        }
+
+        $group = Group::where('group_name', $group_name)->first();
+
         return view('employee.groups.profile', compact('group'));
     }
 }
