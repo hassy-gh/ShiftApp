@@ -47,11 +47,13 @@
           </div>
           @endforeach
 
+          @if($auth)
           <div class="d-flex justify-content-end">
             <a href="{{ route('admin.user.edit-profile', $admin->admin_name) }}" class="btn btn-outline-primary">
               プロフィールを編集する
             </a>
           </div>
+          @endif
         </div>
       </div>
     </div>

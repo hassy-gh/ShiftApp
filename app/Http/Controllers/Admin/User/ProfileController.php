@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin\User;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\User\EditProfileRequest;
+use App\Models\Admin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -25,15 +26,31 @@ class ProfileController extends Controller
      */
     public function showProfile($admin_name)
     {
-        $admin = Auth::user();
-        $groups = $admin->groups;
+        $show_admin = Admin::where('admin_name', $admin_name)->first();   // 表示する管理者
+        $auth_admin = Auth::user();                                       // 認証済み管理者
+        $show_admin_groups = $show_admin->groups->pluck('id')->toArray(); // $show_adminのグループ
+        $auth_admin_groups = $auth_admin->groups->pluck('id')->toArray(); // $auth_adminのグループ
 
-        // 本人でなければリダイレクト
-        if ($admin->admin_name != $admin_name) {
+        // 同じグループではないかつ本人でなければリダイレクト
+        if (
+            empty(array_intersect($show_admin_groups, $auth_admin_groups))
+            && $auth_admin->admin_name != $admin_name
+        ) {
             return redirect()->route('admin.home');
         }
 
-        return view('admin.users.profile', compact(['admin', 'groups']));
+        // 本人であればプロフィール編集へのリンクを表示
+        if ($auth_admin->admin_name != $admin_name) {
+            $admin  = $show_admin;
+            $groups = $show_admin->groups;
+            $auth   = false;
+        } else {
+            $admin  = $auth_admin;
+            $groups = $auth_admin->groups;
+            $auth   = true;
+        }
+
+        return view('admin.users.profile', compact(['admin', 'groups', 'auth']));
     }
 
     /**
