@@ -19,6 +19,7 @@ class ProfileController extends Controller
     public function __construct()
     {
         $this->middleware('auth:admin');
+        $this->middleware('myself')->except('showProfile');
     }
 
     /**
@@ -60,11 +61,6 @@ class ProfileController extends Controller
     {
         $admin = Auth::user();
 
-        // 本人でなければリダイレクト
-        if ($admin->admin_name != $admin_name) {
-            return redirect()->route('admin.home');
-        }
-
         return view('admin.users.edit', compact('admin'));
     }
 
@@ -74,11 +70,6 @@ class ProfileController extends Controller
     public function editProfile(EditProfileRequest $request, $admin_name)
     {
         $admin = Auth::user();
-
-        // 本人でなければリダイレクト
-        if ($admin->admin_name != $admin_name) {
-            return redirect()->route('admin.home');
-        }
 
         // データの更新
         $admin->admin_name  = $request->admin_name;

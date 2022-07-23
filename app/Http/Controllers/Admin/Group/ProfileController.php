@@ -19,6 +19,7 @@ class ProfileController extends Controller
     public function __construct()
     {
         $this->middleware('auth:admin');
+        $this->middleware('join');
     }
 
     /**
@@ -26,12 +27,6 @@ class ProfileController extends Controller
      */
     public function showGroupProfile($group_name)
     {
-        // 指定したグループに所属していない場合リダイレクト
-        $groups = Auth::user()->groups;
-        if (is_null($groups->where('group_name', $group_name)->first())) {
-            return redirect()->route('admin.home');
-        }
-
         $group = Group::where('group_name', $group_name)->first();
 
         return view('admin.groups.profile', compact('group'));
@@ -42,12 +37,6 @@ class ProfileController extends Controller
      */
     public function showProfileEditForm($group_name)
     {
-        // 指定したグループに所属していない場合リダイレクト
-        $groups = Auth::user()->groups;
-        if (is_null($groups->where('group_name', $group_name)->first())) {
-            return redirect()->route('admin.home');
-        }
-
         $group = Group::where('group_name', $group_name)->first();
 
         return view('admin.groups.edit', compact('group'));
@@ -58,12 +47,6 @@ class ProfileController extends Controller
      */
     public function editProfile(EditProfileRequest $request, $group_name)
     {
-        // 指定したグループに所属していない場合リダイレクト
-        $groups = Auth::user()->groups;
-        if (is_null($groups->where('group_name', $group_name)->first())) {
-            return redirect()->route('admin.home');
-        }
-
         $group = Group::where('group_name', $group_name)->first();
 
         // データの更新

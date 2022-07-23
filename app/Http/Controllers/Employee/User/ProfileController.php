@@ -18,6 +18,7 @@ class ProfileController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        $this->middleware('myself');
     }
 
     /**
@@ -27,11 +28,6 @@ class ProfileController extends Controller
     {
         $employee = Auth::user();
         $groups = $employee->groups;
-
-        // 本人でなければリダイレクト
-        if ($employee->user_name != $user_name) {
-            return redirect()->route('home');
-        }
 
         return view('employee.users.profile', compact(['employee', 'groups']));
     }
@@ -43,11 +39,6 @@ class ProfileController extends Controller
     {
         $employee = Auth::user();
 
-        // 本人でなければリダイレクト
-        if ($employee->user_name != $user_name) {
-            return redirect()->route('home');
-        }
-
         return view('employee.users.edit', compact('employee'));
     }
 
@@ -57,11 +48,6 @@ class ProfileController extends Controller
     public function editProfile(EditProfileRequest $request, $user_name)
     {
         $employee = Auth::user();
-
-        // 本人でなければリダイレクト
-        if ($employee->user_name != $user_name) {
-            return redirect()->route('home');
-        }
 
         // データの更新
         $employee->user_name  = $request->user_name;
